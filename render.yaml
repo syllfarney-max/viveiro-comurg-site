@@ -4,17 +4,20 @@ services:
     env: node
     plan: free
     buildCommand: "cd backend && npm install"
-    startCommand: "cd backend && npm start"
+    startCommand: "cd backend && node server.js"
     envVars:
       - key: SENDGRID_API_KEY
         sync: false
       - key: CONTACT_EMAIL
         sync: false
 
-  - type: static
+  - type: web
     name: viveiro-comurg-frontend
+    env: node
+    plan: free
     buildCommand: "cd frontend && npm install && npm run build"
-    publishPath: frontend/dist
+    startCommand: "cd frontend && npm run preview -- --port 10000"
     envVars:
       - key: VITE_API_URL
         value: "https://viveiro-comurg-backend.onrender.com"
+
